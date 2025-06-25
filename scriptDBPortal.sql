@@ -35,7 +35,7 @@ CREATE TABLE vagas (
     responsabilidades TEXT,
     salario_min DECIMAL(10, 2),
     salario_max DECIMAL(10, 2),
-    tipo_salario ENUM('Por_Hora', 'Por_Mes', 'Por_Ano', 'Negociavel') DEFAULT 'Por_Mes',
+    tipo_salario ENUM('Por_Hora', 'Por_Mes', 'Por_Ano', 'Negociavel') DEFAULT 'Por_Mes', -- (Linha ajustada)
     localizacao_cidade VARCHAR(100) NOT NULL,
     localizacao_estado VARCHAR(2) NOT NULL,
     tipo_contrato ENUM('CLT', 'PJ', 'Estágio', 'Temporário', 'Freelancer', 'Trainee') NOT NULL,
@@ -72,16 +72,27 @@ CREATE TABLE candidatos (
     ultimo_acesso DATETIME DEFAULT CURRENT_TIMESTAMP
 );
 
--- Formação Acadêmica
+-- Formação Acadêmica (Ajustada linha do enum)
 CREATE TABLE formacao_academica (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    id INT AUTO_INCREMENT PRIMARY KEY,
     candidato_id BIGINT NOT NULL,
     instituicao VARCHAR(255) NOT NULL,
     curso VARCHAR(255) NOT NULL,
-    nivel ENUM('Ensino Médio', 'Técnico', 'Graduação', 'Pós-Graduação', 'Mestrado', 'Doutorado') NOT NULL,
+    nivel ENUM(
+        'ENSINO_MEDIO',
+        'TECNICO',
+        'GRADUACAO',
+        'POS_GRADUACAO',
+        'MESTRADO',
+        'DOUTORADO'
+    ) NOT NULL,
     data_inicio DATE NOT NULL,
     data_conclusao DATE,
-    status ENUM('Concluído', 'Em Andamento', 'Interrompido') NOT NULL,
+    status ENUM(
+        'CONCLUIDO',
+        'EM_ANDAMENTO',
+        'INTERROMPIDO'
+    ) NOT NULL,
     FOREIGN KEY (candidato_id) REFERENCES candidatos(id) ON DELETE CASCADE
 );
 
@@ -104,26 +115,44 @@ CREATE TABLE habilidades (
     habilidade VARCHAR(100) UNIQUE NOT NULL
 );
 
--- Relacionamento Candidato/Habilidade (Muitos-para-Muitos)
+INSERT INTO habilidades (habilidade) VALUES -- Comando incluído para deixar definidas as habilidades
+('Java'),
+('Spring Boot'),
+('Angular'),
+('MySQL'),
+('HTML'),
+('CSS'),
+('JavaScript'),
+('Python'),
+('Node.js');
+
+-- Relacionamento Candidato/Habilidade (Muitos-para-Muitos) - (Ajustada linha 122)
 CREATE TABLE candidato_habilidades (
     candidato_id BIGINT NOT NULL,
     habilidade_id BIGINT NOT NULL,
-    nivel_proficiencia ENUM('Básico', 'Intermediário', 'Avançado', 'Fluente') DEFAULT 'Intermediário',
+    nivel_proficiencia ENUM('BASICO', 'INTERMEDIARIO', 'AVANCADO', 'FLUENTE') DEFAULT 'INTERMEDIARIO',
     PRIMARY KEY (candidato_id, habilidade_id),
     FOREIGN KEY (candidato_id) REFERENCES candidatos(id) ON DELETE CASCADE,
     FOREIGN KEY (habilidade_id) REFERENCES habilidades(id) ON DELETE CASCADE
 );
 
--- Candidaturas
+-- Candidaturas (Ajustada)
 CREATE TABLE candidaturas (
     id BIGINT AUTO_INCREMENT PRIMARY KEY,
     candidato_id BIGINT NOT NULL,
     vaga_id BIGINT NOT NULL,
     data_candidatura DATETIME DEFAULT CURRENT_TIMESTAMP,
-    status_candidatura ENUM(
-        'Candidatura Enviada', 'Em Análise', 'Entrevista Agendada', 'Entrevista Realizada',
-        'Teste Aplicado', 'Oferecido', 'Contratado', 'Rejeitado', 'Retirado'
-    ) DEFAULT 'Candidatura Enviada',
+	status_candidatura ENUM(
+        'CANDIDATURA_ENVIADA',
+        'EM_ANALISE',
+        'ENTREVISTA_AGENDADA',
+        'ENTREVISTA_REALIZADA',
+        'TESTE_APLICADO',
+        'OFERECIDO',
+        'CONTRATADO',
+        'REJEITADO',
+        'RETIRADO'
+    ) DEFAULT 'CANDIDATURA_ENVIADA',
     observacoes TEXT,
     FOREIGN KEY (candidato_id) REFERENCES candidatos(id) ON DELETE CASCADE,
     FOREIGN KEY (vaga_id) REFERENCES vagas(id) ON DELETE CASCADE,

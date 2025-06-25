@@ -1,0 +1,147 @@
+{
+	"info": {
+		"_postman_id": "c0b09d88-d79b-4c15-9ba3-5a9f549657f6",
+		"name": "Projeto Recode EMPRESA",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43833337",
+		"_collection_link": "https://galactic-rocket-935266.postman.co/workspace/Ten%C3%B3rio's-Workspace~62dbab79-5f68-4183-8fe9-49b4392f8ca3/collection/43833337-c0b09d88-d79b-4c15-9ba3-5a9f549657f6?action=share&source=collection_link&creator=43833337"
+	},
+	"item": [
+		{
+			"name": "Cadastrar Empresa",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nomeFantasia\": \"MaceioTurismo\",\r\n  \"razaoSocial\": \"Maceio Turismo LTDA\",\r\n  \"cnpj\": \"12.345.678/0001-89\",\r\n  \"porte\": \"Grande\",\r\n  \"segmento\": \"Turismo\",\r\n  \"email\": \"contato@maceio.com\",\r\n  \"telefone\": \"82999999999\",\r\n  \"site\": \"https://maceio.com\",\r\n  \"enderecoRua\": \"Av. Maceió\",\r\n  \"enderecoNumero\": \"1000\",\r\n  \"enderecoComplemento\": \"9º andar\",\r\n  \"enderecoBairro\": \"Ponta Verde\",\r\n  \"enderecoCidade\": \"Maceio\",\r\n  \"enderecoEstado\": \"AL\",\r\n  \"enderecoCep\": \"57045-000\",\r\n  \"descricaoEmpresa\": \"Empresa de turismo.\",\r\n  \"logoUrl\": \"https://maceio.com/logo.png\",\r\n  \"status\": \"Ativa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/empresas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"empresas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Empresas",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nomeFantasia\": \"RGTCorp\",\r\n  \"razaoSocial\": \"RGTCorp Tecnologia S/A\",\r\n  \"cnpj\": \"12.345.678/0001-99\",\r\n  \"porte\": \"Média\",\r\n  \"segmento\": \"Tecnologia\",\r\n  \"email\": \"contato@rgtcorp.com\",\r\n  \"telefone\": \"11999999999\",\r\n  \"site\": \"https://rgtcorp.com\",\r\n  \"enderecoRua\": \"Av. Maceió\",\r\n  \"enderecoNumero\": \"1000\",\r\n  \"enderecoComplemento\": \"10º andar\",\r\n  \"enderecoBairro\": \"Ponta Verde\",\r\n  \"enderecoCidade\": \"Maceio\",\r\n  \"enderecoEstado\": \"AL\",\r\n  \"enderecoCep\": \"57045-000\",\r\n  \"descricaoEmpresa\": \"Empresa de tecnologia e inovação.\",\r\n  \"logoUrl\": \"https://RGTCorp.com/logo.png\",\r\n  \"status\": \"Ativa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/empresas",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"empresas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Empresa por Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nomeFantasia\": \"Empresa Maceio\",\r\n  \"razaoSocial\": \"Empresa Maceio LTDA\",\r\n  \"cnpj\": \"12.123.456/0001-89\",\r\n  \"porte\": \"Grande\",\r\n  \"segmento\": \"Educação\",\r\n  \"email\": \"empresa@maceio.com\",\r\n  \"telefone\": \"82988887777\",\r\n  \"site\": \"https://empresa.com\",\r\n  \"enderecoRua\": \"Av. Maceio\",\r\n  \"enderecoNumero\": \"123\",\r\n  \"enderecoComplemento\": \"Sala 5\",\r\n  \"enderecoBairro\": \"Centro\",\r\n  \"enderecoCidade\": \"Maceio\",\r\n  \"enderecoEstado\": \"AL\",\r\n  \"enderecoCep\": \"57000-000\",\r\n  \"descricaoEmpresa\": \"Empresa educacional localizada em Maceio.\",\r\n  \"logoUrl\": \"https://empresa.com/logo.png\",\r\n  \"status\": \"Ativa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/empresas/2",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"empresas",
+						"2"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Empresa por Id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nomeFantasia\": \"Empresa Maceio\",\r\n  \"razaoSocial\": \"Empresa Maceio LTDA\",\r\n  \"cnpj\": \"12.123.456/0001-89\",\r\n  \"porte\": \"Grande\",\r\n  \"segmento\": \"Educação\",\r\n  \"email\": \"empresa@maceio.com\",\r\n  \"telefone\": \"82988887777\",\r\n  \"site\": \"https://empresa.com\",\r\n  \"enderecoRua\": \"Av. Maceio\",\r\n  \"enderecoNumero\": \"123\",\r\n  \"enderecoComplemento\": \"Sala 5\",\r\n  \"enderecoBairro\": \"Centro\",\r\n  \"enderecoCidade\": \"Maceio\",\r\n  \"enderecoEstado\": \"AL\",\r\n  \"enderecoCep\": \"57000-000\",\r\n  \"descricaoEmpresa\": \"Empresa educacional localizada em Maceio.\",\r\n  \"logoUrl\": \"https://empresa.com/logo.png\",\r\n  \"status\": \"Ativa\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/empresas/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"empresas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

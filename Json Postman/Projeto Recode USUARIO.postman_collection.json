@@ -1,0 +1,144 @@
+{
+	"info": {
+		"_postman_id": "dfeae2d9-d231-48c1-8cb9-8e53a32e795a",
+		"name": "Projeto Recode USUARIO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43833337",
+		"_collection_link": "https://galactic-rocket-935266.postman.co/workspace/Ten%C3%B3rio's-Workspace~62dbab79-5f68-4183-8fe9-49b4392f8ca3/collection/43833337-dfeae2d9-d231-48c1-8cb9-8e53a32e795a?action=share&source=collection_link&creator=43833337"
+	},
+	"item": [
+		{
+			"name": "Cadastrar Usuario",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"adm@teste.com\",\r\n  \"senhaHash\": \"765432\", \r\n  \"tipoConta\": \"Administrador\",\r\n  \"referenciaId\": 3\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Usuario",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@teste.com\",\r\n  \"senhaHash\": \"987654\", \r\n  \"tipoConta\": \"Administrador\",\r\n  \"referenciaId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Usuario por Id",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@teste.com\",\r\n  \"senhaHash\": \"987654\", \r\n  \"tipoConta\": \"Administrador\",\r\n  \"referenciaId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Deletar Usuario por Id",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"email\": \"admin@teste.com\",\r\n  \"senhaHash\": \"987654\", \r\n  \"tipoConta\": \"Administrador\",\r\n  \"referenciaId\": 2\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/usuarios/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"usuarios",
+						"3"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

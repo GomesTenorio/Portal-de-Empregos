@@ -1,0 +1,81 @@
+{
+	"info": {
+		"_postman_id": "b86258e6-97da-466a-adab-97d78482b669",
+		"name": "Projeto Recode FORMAÇÃO",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43833337",
+		"_collection_link": "https://galactic-rocket-935266.postman.co/workspace/Ten%C3%B3rio's-Workspace~62dbab79-5f68-4183-8fe9-49b4392f8ca3/collection/43833337-b86258e6-97da-466a-adab-97d78482b669?action=share&source=collection_link&creator=43833337"
+	},
+	"item": [
+		{
+			"name": "Salvar Formacao",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"instituicao\": \"UFAL\",\r\n  \"curso\": \"Engenharia da Computação\",\r\n  \"nivel\": \"Graduação\",\r\n  \"dataInicio\": \"2020-01-01\",\r\n  \"dataConclusao\": \"2024-01-01\",\r\n  \"status\": \"Concluído\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/formacoes?candidatoId=1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"formacoes"
+					],
+					"query": [
+						{
+							"key": "candidatoId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Listar Formações",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"instituicao\": \"Universidade Federal de Alagoas\",\r\n  \"curso\": \"Engenharia da Computação\",\r\n  \"nivel\": \"Graduação\",\r\n  \"dataInicio\": \"2019-03-01\",\r\n  \"dataConclusao\": \"2023-12-01\",\r\n  \"status\": \"Concluído\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/formacoes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"formacoes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

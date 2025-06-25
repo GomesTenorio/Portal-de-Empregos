@@ -9,78 +9,92 @@ import java.time.LocalDateTime;
 @Table(name = "vagas")
 public class Vaga {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "empresa_id")
-    private Empresa empresa;
+	@ManyToOne(optional = false)
+	@JoinColumn(name = "empresa_id")
+	private Empresa empresa;
 
-    @Column(nullable = false)
-    private String titulo;
+	@Column(nullable = false)
+	private String titulo;
 
-    @Column(nullable = false, columnDefinition = "TEXT")
-    private String descricao;
+	@Column(nullable = false, columnDefinition = "TEXT")
+	private String descricao;
 
-    @Column(columnDefinition = "TEXT")
-    private String requisitos;
+	@Column(columnDefinition = "TEXT")
+	private String requisitos;
 
-    @Column(columnDefinition = "TEXT")
-    private String responsabilidades;
+	@Column(columnDefinition = "TEXT")
+	private String responsabilidades;
 
-    @Column(name = "salario_min")
-    private BigDecimal salarioMin;
+	@Column(name = "salario_min")
+	private BigDecimal salarioMin;
 
-    @Column(name = "salario_max")
-    private BigDecimal salarioMax;
+	@Column(name = "salario_max")
+	private BigDecimal salarioMax;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_salario")
-    private TipoSalario tipoSalario = TipoSalario.Por_Mes;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo_salario")
+	private TipoSalario tipoSalario = TipoSalario.Por_Mes;
 
-    @Column(name = "localizacao_cidade", nullable = false)
-    private String localizacaoCidade;
+	@Column(name = "localizacao_cidade", nullable = false)
+	private String localizacaoCidade;
 
-    @Column(name = "localizacao_estado", nullable = false)
-    private String localizacaoEstado;
+	@Column(name = "localizacao_estado", nullable = false)
+	private String localizacaoEstado;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "tipo_contrato", nullable = false)
-    private TipoContrato tipoContrato;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "tipo_contrato", nullable = false)
+	private TipoContrato tipoContrato;
 
-    @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
-    private Modalidade modalidade;
+	@Enumerated(EnumType.STRING)
+	@Column(nullable = false)
+	private Modalidade modalidade;
 
-    private String setor;
-    private String areaProfissional;
+	private String setor;
+	private String areaProfissional;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "nivel_experiencia", nullable = false)
-    private NivelExperiencia nivelExperiencia;
+	@Enumerated(EnumType.STRING)
+	@Column(name = "nivel_experiencia", nullable = false)
+	private NivelExperiencia nivelExperiencia;
 
-    @Column(columnDefinition = "TEXT")
-    private String beneficios;
+	@Column(columnDefinition = "TEXT")
+	private String beneficios;
 
-    @Column(name = "data_publicacao")
-    private LocalDateTime dataPublicacao = LocalDateTime.now();
+	@Column(name = "data_publicacao")
+	private LocalDateTime dataPublicacao = LocalDateTime.now();
 
-    @Column(name = "data_expiracao")
-    private LocalDate dataExpiracao;
+	@Column(name = "data_expiracao")
+	private LocalDate dataExpiracao;
 
-    @Enumerated(EnumType.STRING)
-    private Status status = Status.Aberta;
+	@Enumerated(EnumType.STRING)
+	private Status status = Status.Aberta;
 
-    // enums
-    public enum TipoSalario { Por_Hora, Por_Mes, Por_Ano, Negociável }
-    public enum TipoContrato { CLT, PJ, Estágio, Temporário, Freelancer, Trainee }
-    public enum Modalidade { Presencial, Remoto, Híbrido }
-    public enum NivelExperiencia { Estágio, Júnior, Pleno, Sênior, Especialista }
-    public enum Status { Aberta, Fechada, Pausada }
-	
-    // construtor completo
-    public Vaga(Long id, Empresa empresa, String titulo, String descricao, String requisitos, String responsabilidades,
+	// enums
+	public enum TipoSalario {
+		Por_Hora, Por_Mes, Por_Ano, Negociável
+	}
+
+	public enum TipoContrato {
+		CLT, PJ, Estágio, Temporário, Freelancer, Trainee
+	}
+
+	public enum Modalidade {
+		Presencial, Remoto, Híbrido
+	}
+
+	public enum NivelExperiencia {
+		Estágio, Júnior, Pleno, Sênior, Especialista
+	}
+
+	public enum Status {
+		Aberta, Fechada, Pausada
+	}
+
+	// construtor completo
+	public Vaga(Long id, Empresa empresa, String titulo, String descricao, String requisitos, String responsabilidades,
 			BigDecimal salarioMin, BigDecimal salarioMax, TipoSalario tipoSalario, String localizacaoCidade,
 			String localizacaoEstado, TipoContrato tipoContrato, Modalidade modalidade, String setor,
 			String areaProfissional, NivelExperiencia nivelExperiencia, String beneficios, LocalDateTime dataPublicacao,
@@ -107,7 +121,7 @@ public class Vaga {
 		this.status = status;
 	}
 
-    // cosntrutor sem id
+	// cosntrutor sem id
 	public Vaga(Empresa empresa, String titulo, String descricao, String requisitos, String responsabilidades,
 			BigDecimal salarioMin, BigDecimal salarioMax, TipoSalario tipoSalario, String localizacaoCidade,
 			String localizacaoEstado, TipoContrato tipoContrato, Modalidade modalidade, String setor,
@@ -134,7 +148,7 @@ public class Vaga {
 		this.status = status;
 	}
 
-	//construtor vazio
+	// construtor vazio
 	public Vaga() {
 	}
 
@@ -298,7 +312,5 @@ public class Vaga {
 	public void setStatus(Status status) {
 		this.status = status;
 	}
-    
-    
-    
+
 }
