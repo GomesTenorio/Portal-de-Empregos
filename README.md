@@ -84,7 +84,7 @@ Você pode compartilhar e adaptar o conteúdo para fins não comerciais, desde q
 - **Andre Luis Da Silveira** – [@Andre-aLuis](https://github.com/Andre-aLuis)  
 - **Kevin Costa da Silva** – [@Kev-Costa](https://github.com/Kev-Costa)  
 - **Rafael Gomes Tenório** – [@GomesTenorio](https://github.com/GomesTenorio)  
-- **Thiago Saraiva Raposo** – [](#)  
+- **Thiago Saraiva Raposo** – [@Thiago-Raposo](https://github.com/Thiago-Raposo/Thiago-Raposo)  
 
 ---
 
