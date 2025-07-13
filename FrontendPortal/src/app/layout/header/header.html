@@ -1,0 +1,44 @@
+<header class="header">
+  <div class="container">
+    <div class="header-content">
+      <div class="logo">
+        <a routerLink="/" class="logo-link">
+          <h1>DiversaWork</h1>
+          <span class="tagline">Empregos Inclusivos</span>
+        </a>
+      </div>
+      
+      <nav class="nav">
+        <ul class="nav-list">
+          <li><a routerLink="/" class="nav-link">Início</a></li>
+          <li><a routerLink="/jobs" class="nav-link">Vagas</a></li>
+          
+          <li *ngIf="!isLoggedIn()">
+            <a routerLink="/login" class="nav-link">Entrar</a>
+          </li>
+          
+          <li *ngIf="!isLoggedIn()" class="dropdown">
+            <span class="nav-link dropdown-toggle">Cadastrar</span>
+            <ul class="dropdown-menu">
+              <li><a routerLink="/register/candidate" class="dropdown-link">Como Candidato</a></li>
+              <li><a routerLink="/register/company" class="dropdown-link">Como Empresa</a></li>
+            </ul>
+          </li>
+          
+          <li *ngIf="isLoggedIn() && getUserType() === 'CANDIDATO'">
+            <a routerLink="/candidate/dashboard" class="nav-link">Meu Perfil</a>
+          </li>
+          
+          <li *ngIf="isLoggedIn() && getUserType() === 'EMPRESA'">
+            <a routerLink="/company/dashboard" class="nav-link">Painel Empresa</a>
+          </li>
+          
+          <li *ngIf="isLoggedIn()">
+            <button (click)="logout()" class="nav-link logout-btn">Sair</button>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</header>
+

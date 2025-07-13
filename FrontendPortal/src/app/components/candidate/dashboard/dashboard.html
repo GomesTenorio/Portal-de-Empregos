@@ -1,0 +1,303 @@
+<div class="candidate-dashboard">
+  <div class="container-fluid">
+    <div class="row">
+      <!-- Sidebar -->
+      <div class="col-lg-3 col-md-4 sidebar-col">
+        <div class="sidebar">
+          <div class="user-profile-card">
+            <div class="profile-header">
+              <div class="profile-avatar">
+                <img src="assets/images/default-avatar.png" 
+                     [alt]="candidate?.nomeCompleto" class="avatar-img">
+                <button class="btn btn-sm btn-outline-primary edit-photo-btn" (click)="editPhoto()">
+                  <i class="fas fa-camera"></i>
+                </button>
+              </div>
+              <h5 class="profile-name">{{ candidate?.nomeCompleto }}</h5>
+              <p class="profile-title">{{ candidate?.resumoProfissional || 'Profissional' }}</p>
+              <div class="profile-completion">
+                <div class="completion-bar">
+                  <div class="completion-fill" [style.width.%]="profileCompletion"></div>
+                </div>
+                <small class="text-muted">Perfil {{ profileCompletion }}% completo</small>
+              </div>
+            </div>
+          </div>
+
+          <nav class="sidebar-nav">
+            <ul class="nav flex-column">
+              <li class="nav-item">
+                <a class="nav-link active" href="#overview" (click)="setActiveTab('overview')">
+                  <i class="fas fa-tachometer-alt me-2"></i>
+                  Visão Geral
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#applications" (click)="setActiveTab('applications')">
+                  <i class="fas fa-file-alt me-2"></i>
+                  Minhas Candidaturas
+                  <span class="badge bg-primary ms-auto">{{ totalApplications }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#profile" (click)="setActiveTab('profile')">
+                  <i class="fas fa-user me-2"></i>
+                  Meu Perfil
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#recommendations" (click)="setActiveTab('recommendations')">
+                  <i class="fas fa-star me-2"></i>
+                  Vagas Recomendadas
+                  <span class="badge bg-success ms-auto">{{ recommendedJobs.length }}</span>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="#saved" (click)="setActiveTab('saved')">
+                  <i class="fas fa-bookmark me-2"></i>
+                  Vagas Salvas
+                </a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="col-lg-9 col-md-8 main-content">
+        <!-- Overview Tab -->
+        <div class="tab-content" *ngIf="activeTab === 'overview'">
+          <div class="welcome-section mb-4">
+            <h2>Bem-vindo, {{ (candidate?.nomeCompleto || '').split(' ')[0] || 'Candidato' }}!</h2>
+            <p class="text-muted">Aqui está um resumo da sua atividade na plataforma</p>
+          </div>
+
+          <!-- Stats Cards -->
+          <div class="row mb-4">
+            <div class="col-md-3 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-primary">
+                  <i class="fas fa-paper-plane"></i>
+                </div>
+                <div class="stat-content">
+                  <h3>{{ totalApplications }}</h3>
+                  <p>Candidaturas Enviadas</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-success">
+                  <i class="fas fa-eye"></i>
+                </div>
+                <div class="stat-content">
+                  <h3>{{ profileViews }}</h3>
+                  <p>Visualizações do Perfil</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-warning">
+                  <i class="fas fa-clock"></i>
+                </div>
+                <div class="stat-content">
+                  <h3>{{ pendingApplications }}</h3>
+                  <p>Aguardando Resposta</p>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-3 mb-3">
+              <div class="stat-card">
+                <div class="stat-icon bg-info">
+                  <i class="fas fa-star"></i>
+                </div>
+                <div class="stat-content">
+                  <h3>{{ recommendedJobs.length }}</h3>
+                  <p>Vagas Recomendadas</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Activity -->
+          <div class="row">
+            <div class="col-lg-8 mb-4">
+              <div class="card">
+                <div class="card-header d-flex justify-content-between align-items-center">
+                  <h5 class="mb-0">
+                    <i class="fas fa-history me-2"></i>
+                    Atividade Recente
+                  </h5>
+                  <a routerLink="/candidate/applications" class="btn btn-sm btn-outline-primary">
+                    Ver Todas
+                  </a>
+                </div>
+                <div class="card-body">
+                  <div class="activity-list" *ngIf="recentApplications.length > 0; else noActivity">
+                    <div class="activity-item" *ngFor="let application of recentApplications">
+                      <div class="activity-icon" [ngClass]="getActivityIconClass(application.status)">
+                        <i [class]="getActivityIcon(application.status)"></i>
+                      </div>
+                      <div class="activity-content">
+                        <h6>{{ application.vaga.titulo }}</h6>
+                        <p class="text-muted mb-1">{{ application.vaga.empresa.nomeFantasia }}</p>
+                        <small class="text-muted">
+                          {{ application.dataAplicacao | date:'dd/MM/yyyy' }}
+                        </small>
+                      </div>
+                      <div class="activity-status">
+                        <span class="badge" [ngClass]="getStatusBadgeClass(application.status)">
+                          {{ application.status }}
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                  <ng-template #noActivity>
+                    <div class="text-center py-4">
+                      <i class="fas fa-inbox fa-3x text-muted mb-3"></i>
+                      <p class="text-muted">Nenhuma atividade recente</p>
+                      <a routerLink="/jobs" class="btn btn-primary">
+                        Buscar Vagas
+                      </a>
+                    </div>
+                  </ng-template>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-lg-4 mb-4">
+              <div class="card">
+                <div class="card-header">
+                  <h5 class="mb-0">
+                    <i class="fas fa-chart-line me-2"></i>
+                    Progresso do Perfil
+                  </h5>
+                </div>
+                <div class="card-body">
+                  <div class="progress-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                      <span>Informações Básicas</span>
+                      <span>{{ basicInfoProgress }}%</span>
+                    </div>
+                    <div class="progress">
+                      <div class="progress-bar bg-success" [style.width.%]="basicInfoProgress"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="progress-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                      <span>Experiência Profissional</span>
+                      <span>{{ experienceProgress }}%</span>
+                    </div>
+                    <div class="progress">
+                      <div class="progress-bar bg-info" [style.width.%]="experienceProgress"></div>
+                    </div>
+                  </div>
+                  
+                  <div class="progress-item mb-3">
+                    <div class="d-flex justify-content-between mb-1">
+                      <span>Formação Acadêmica</span>
+                      <span>{{ educationProgress }}%</span>
+                    </div>
+                    <div class="progress">
+                      <div class="progress-bar bg-warning" [style.width.%]="educationProgress"></div>
+                    </div>
+                  </div>
+
+                  <div class="mt-3">
+                    <a routerLink="/candidate/profile" class="btn btn-outline-primary w-100">
+                      Completar Perfil
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Recommended Jobs -->
+          <div class="card">
+            <div class="card-header d-flex justify-content-between align-items-center">
+              <h5 class="mb-0">
+                <i class="fas fa-star me-2"></i>
+                Vagas Recomendadas para Você
+              </h5>
+              <a routerLink="/candidate/recommendations" class="btn btn-sm btn-outline-primary">
+                Ver Todas
+              </a>
+            </div>
+            <div class="card-body">
+              <div class="row" *ngIf="recommendedJobs.length > 0; else noRecommendations">
+                <div class="col-md-6 mb-3" *ngFor="let job of recommendedJobs.slice(0, 4)">
+                  <div class="job-recommendation-card">
+                    <div class="job-header">
+                      <h6>{{ job.titulo }}</h6>
+                      <p class="text-muted mb-1">{{ job.empresa.nomeFantasia }}</p>
+                      <small class="text-muted">
+                        <i class="fas fa-map-marker-alt me-1"></i>
+                        {{ job.localizacaoCidade }}, {{ job.localizacaoEstado }}
+                      </small>
+                    </div>
+                    <div class="job-meta">
+                      <span class="badge bg-light text-dark me-1">{{ job.modalidade }}</span>
+                      <span class="badge bg-light text-dark me-1">{{ job.nivelExperiencia }}</span>
+                      <span class="badge bg-success" *ngIf="job.salarioMin">
+                        R$ {{ job.salarioMin | number:'1.0-0' }}
+                      </span>
+                    </div>
+                    <div class="job-actions mt-2">
+                      <button class="btn btn-sm btn-primary me-2" (click)="applyToJob(job)">
+                        Candidatar-se
+                      </button>
+                      <button class="btn btn-sm btn-outline-secondary" (click)="saveJob(job)">
+                        <i class="fas fa-bookmark"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <ng-template #noRecommendations>
+                <div class="text-center py-4">
+                  <i class="fas fa-search fa-3x text-muted mb-3"></i>
+                  <p class="text-muted">Complete seu perfil para receber recomendações personalizadas</p>
+                  <a routerLink="/candidate/profile" class="btn btn-primary">
+                    Completar Perfil
+                  </a>
+                </div>
+              </ng-template>
+            </div>
+          </div>
+        </div>
+
+        <!-- Applications Tab -->
+        <div class="tab-content" *ngIf="activeTab === 'applications'">
+          <h3>Minhas Candidaturas</h3>
+          <!-- Applications content will be implemented -->
+          <p>Conteúdo das candidaturas será implementado aqui.</p>
+        </div>
+
+        <!-- Profile Tab -->
+        <div class="tab-content" *ngIf="activeTab === 'profile'">
+          <h3>Meu Perfil</h3>
+          <!-- Profile content will be implemented -->
+          <p>Conteúdo do perfil será implementado aqui.</p>
+        </div>
+
+        <!-- Recommendations Tab -->
+        <div class="tab-content" *ngIf="activeTab === 'recommendations'">
+          <h3>Vagas Recomendadas</h3>
+          <!-- Recommendations content will be implemented -->
+          <p>Conteúdo das recomendações será implementado aqui.</p>
+        </div>
+
+        <!-- Saved Jobs Tab -->
+        <div class="tab-content" *ngIf="activeTab === 'saved'">
+          <h3>Vagas Salvas</h3>
+          <!-- Saved jobs content will be implemented -->
+          <p>Conteúdo das vagas salvas será implementado aqui.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+

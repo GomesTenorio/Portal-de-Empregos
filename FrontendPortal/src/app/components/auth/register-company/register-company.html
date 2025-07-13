@@ -1,0 +1,264 @@
+<div class="register-company-container">
+  <div class="register-form">
+    <h2>Cadastro de Empresa</h2>
+    <p class="subtitle">Conecte-se com talentos diversos e promova a inclusão</p>
+    
+    <form [formGroup]="empresaForm" (ngSubmit)="onSubmit()" novalidate>
+      <!-- Informações Básicas -->
+      <div class="form-section">
+        <h3>Informações da Empresa</h3>
+        
+        <div class="form-group">
+          <label for="nomeFantasia">Nome Fantasia *</label>
+          <input 
+            type="text" 
+            id="nomeFantasia" 
+            formControlName="nomeFantasia"
+            placeholder="Digite o nome fantasia da empresa"
+            [class.error]="isFieldInvalid('nomeFantasia')">
+          <div class="error-message" *ngIf="isFieldInvalid('nomeFantasia')">
+            Nome fantasia é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="razaoSocial">Razão Social *</label>
+          <input 
+            type="text" 
+            id="razaoSocial" 
+            formControlName="razaoSocial"
+            placeholder="Digite a razão social da empresa"
+            [class.error]="isFieldInvalid('razaoSocial')">
+          <div class="error-message" *ngIf="isFieldInvalid('razaoSocial')">
+            Razão social é obrigatória
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="cnpj">CNPJ *</label>
+          <input 
+            type="text" 
+            id="cnpj" 
+            formControlName="cnpj"
+            placeholder="00.000.000/0000-00"
+            appMask="cnpj"
+            [class.error]="isFieldInvalid('cnpj')">
+          <div class="error-message" *ngIf="isFieldInvalid('cnpj')">
+            <span *ngIf="empresaForm.get('cnpj')?.errors?.['required']">CNPJ é obrigatório</span>
+            <span *ngIf="empresaForm.get('cnpj')?.errors?.['pattern']">CNPJ deve ter formato válido</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="porte">Porte da Empresa *</label>
+          <select 
+            id="porte" 
+            formControlName="porte"
+            [class.error]="isFieldInvalid('porte')">
+            <option value="">Selecione o porte</option>
+            <option value="Micro">Micro</option>
+            <option value="Pequena">Pequena</option>
+            <option value="Media">Média</option>
+            <option value="Grande">Grande</option>
+          </select>
+          <div class="error-message" *ngIf="isFieldInvalid('porte')">
+            Porte da empresa é obrigatório
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="segmento">Segmento</label>
+          <input 
+            type="text" 
+            id="segmento" 
+            formControlName="segmento"
+            placeholder="Ex: Tecnologia, Saúde, Educação">
+        </div>
+      </div>
+
+      <!-- Informações de Contato -->
+      <div class="form-section">
+        <h3>Informações de Contato</h3>
+        
+        <div class="form-group">
+          <label for="email">Email *</label>
+          <input 
+            type="email" 
+            id="email" 
+            formControlName="email"
+            placeholder="contato@empresa.com"
+            [class.error]="isFieldInvalid('email')">
+          <div class="error-message" *ngIf="isFieldInvalid('email')">
+            <span *ngIf="empresaForm.get('email')?.errors?.['required']">Email é obrigatório</span>
+            <span *ngIf="empresaForm.get('email')?.errors?.['email']">Email deve ter formato válido</span>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="telefone">Telefone</label>
+          <input 
+            type="text" 
+            id="telefone" 
+            formControlName="telefone"
+            placeholder="(11) 99999-9999"
+            appMask="phone">
+        </div>
+
+        <div class="form-group">
+          <label for="site">Website</label>
+          <input 
+            type="url" 
+            id="site" 
+            formControlName="site"
+            placeholder="https://www.empresa.com">
+        </div>
+      </div>
+
+      <!-- Endereço -->
+      <div class="form-section">
+        <h3>Endereço</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="enderecoRua">Rua</label>
+            <input 
+              type="text" 
+              id="enderecoRua" 
+              formControlName="enderecoRua"
+              placeholder="Nome da rua">
+          </div>
+
+          <div class="form-group">
+            <label for="enderecoNumero">Número</label>
+            <input 
+              type="text" 
+              id="enderecoNumero" 
+              formControlName="enderecoNumero"
+              placeholder="123">
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="enderecoComplemento">Complemento</label>
+          <input 
+            type="text" 
+            id="enderecoComplemento" 
+            formControlName="enderecoComplemento"
+            placeholder="Sala, andar, etc.">
+        </div>
+
+        <div class="form-group">
+          <label for="enderecoBairro">Bairro</label>
+          <input 
+            type="text" 
+            id="enderecoBairro" 
+            formControlName="enderecoBairro"
+            placeholder="Nome do bairro">
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label for="enderecoCidade">Cidade</label>
+            <input 
+              type="text" 
+              id="enderecoCidade" 
+              formControlName="enderecoCidade"
+              placeholder="Nome da cidade">
+          </div>
+
+          <div class="form-group">
+            <label for="enderecoEstado">Estado</label>
+            <select id="enderecoEstado" formControlName="enderecoEstado">
+              <option value="">Selecione</option>
+              <option value="AC">Acre</option>
+              <option value="AL">Alagoas</option>
+              <option value="AP">Amapá</option>
+              <option value="AM">Amazonas</option>
+              <option value="BA">Bahia</option>
+              <option value="CE">Ceará</option>
+              <option value="DF">Distrito Federal</option>
+              <option value="ES">Espírito Santo</option>
+              <option value="GO">Goiás</option>
+              <option value="MA">Maranhão</option>
+              <option value="MT">Mato Grosso</option>
+              <option value="MS">Mato Grosso do Sul</option>
+              <option value="MG">Minas Gerais</option>
+              <option value="PA">Pará</option>
+              <option value="PB">Paraíba</option>
+              <option value="PR">Paraná</option>
+              <option value="PE">Pernambuco</option>
+              <option value="PI">Piauí</option>
+              <option value="RJ">Rio de Janeiro</option>
+              <option value="RN">Rio Grande do Norte</option>
+              <option value="RS">Rio Grande do Sul</option>
+              <option value="RO">Rondônia</option>
+              <option value="RR">Roraima</option>
+              <option value="SC">Santa Catarina</option>
+              <option value="SP">São Paulo</option>
+              <option value="SE">Sergipe</option>
+              <option value="TO">Tocantins</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="enderecoCep">CEP</label>
+          <input 
+            type="text" 
+            id="enderecoCep" 
+            formControlName="enderecoCep"
+            placeholder="00000-000"
+            appMask="cep">
+        </div>
+      </div>
+
+      <!-- Informações Adicionais -->
+      <div class="form-section">
+        <h3>Informações Adicionais</h3>
+        
+        <div class="form-group">
+          <label for="descricaoEmpresa">Descrição da Empresa</label>
+          <textarea 
+            id="descricaoEmpresa" 
+            formControlName="descricaoEmpresa"
+            placeholder="Descreva sua empresa, missão, valores e compromisso com a diversidade..."
+            rows="4"></textarea>
+        </div>
+
+        <div class="form-group">
+          <label for="logoUrl">URL do Logo</label>
+          <input 
+            type="url" 
+            id="logoUrl" 
+            formControlName="logoUrl"
+            placeholder="https://exemplo.com/logo.png">
+        </div>
+      </div>
+
+      <!-- Botões -->
+      <div class="form-actions">
+        <button type="button" class="btn-secondary" (click)="goBack()">
+          Cancelar
+        </button>
+        <button 
+          type="submit" 
+          class="btn-primary" 
+          [disabled]="empresaForm.invalid || isSubmitting">
+          <span *ngIf="isSubmitting">Cadastrando...</span>
+          <span *ngIf="!isSubmitting">Cadastrar Empresa</span>
+        </button>
+      </div>
+    </form>
+
+    <!-- Mensagens de Feedback -->
+    <div class="alert alert-success" *ngIf="successMessage">
+      {{ successMessage }}
+    </div>
+    
+    <div class="alert alert-error" *ngIf="errorMessage">
+      {{ errorMessage }}
+    </div>
+  </div>
+</div>
+
+

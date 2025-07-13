@@ -1,0 +1,78 @@
+<div class="login-container">
+  <div class="login-card">
+    <div class="login-header">
+      <h1>Entrar no DiversaWork</h1>
+      <p>Acesse sua conta para encontrar oportunidades inclusivas</p>
+    </div>
+    
+    <form (ngSubmit)="onSubmit()" class="login-form">
+      <!-- Mensagem de Erro -->
+      <div *ngIf="errorMessage" class="error-message">
+        <span>{{ errorMessage }}</span>
+        <button type="button" (click)="clearError()" class="close-error">×</button>
+      </div>
+      
+      <!-- Campo Email -->
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          [(ngModel)]="loginData.email"
+          placeholder="Digite seu email"
+          class="form-input"
+          required
+          [disabled]="loading"
+          (input)="clearError()"
+        >
+      </div>
+      
+      <!-- Campo Senha -->
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input
+          type="password"
+          id="senha"
+          name="senha"
+          [(ngModel)]="loginData.senha"
+          placeholder="Digite sua senha"
+          class="form-input"
+          required
+          [disabled]="loading"
+          (input)="clearError()"
+        >
+      </div>
+      
+      <!-- Botão de Login -->
+      <button 
+        type="submit" 
+        class="login-btn"
+        [disabled]="loading || !loginData.email || !loginData.senha"
+      >
+        <span *ngIf="!loading">Entrar</span>
+        <span *ngIf="loading">Entrando...</span>
+      </button>
+    </form>
+    
+    <!-- Links de Registro -->
+    <div class="login-footer">
+      <p>Ainda não tem uma conta?</p>
+      <div class="register-links">
+        <a routerLink="/register/candidate" class="register-link">
+          Cadastrar como Candidato
+        </a>
+        <span class="separator">ou</span>
+        <a routerLink="/register/company" class="register-link">
+          Cadastrar como Empresa
+        </a>
+      </div>
+    </div>
+    
+    <!-- Link para Home -->
+    <div class="back-home">
+      <a routerLink="/" class="back-link">← Voltar para o início</a>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,249 @@
+.register-container {
+  min-height: calc(100vh - 140px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  margin: -20px;
+  padding: 20px;
+}
+
+.register-card {
+  background: white;
+  border-radius: 15px;
+  padding: 3rem;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 800px;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+.register-header {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.register-header h1 {
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  font-size: 2rem;
+  font-weight: bold;
+}
+
+.register-header p {
+  color: #7f8c8d;
+  margin: 0;
+  font-size: 1rem;
+}
+
+.register-form .error-message, .register-form .success-message {
+  padding: 1rem;
+  border-radius: 5px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.register-form .error-message {
+  background-color: #f8d7da;
+  color: #721c24;
+  border: 1px solid #f5c6cb;
+}
+
+.register-form .success-message {
+  background-color: #d4edda;
+  color: #155724;
+  border: 1px solid #c3e6cb;
+}
+
+.register-form .close-message {
+  background: none;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  line-height: 1;
+}
+
+.register-form .close-message:hover {
+  opacity: 0.7;
+}
+
+.register-form .form-section {
+  margin-bottom: 2rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.register-form .form-section:last-of-type {
+  border-bottom: none;
+}
+
+.register-form .form-section h3 {
+  color: #2c3e50;
+  margin-bottom: 1rem;
+  font-size: 1.3rem;
+  border-bottom: 2px solid #667eea;
+  padding-bottom: 0.5rem;
+}
+
+.register-form .form-section .section-description {
+  color: #6c757d;
+  font-size: 0.9rem;
+  margin-bottom: 1.5rem;
+  line-height: 1.5;
+}
+
+.register-form .form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+  margin-bottom: 1rem;
+}
+
+.register-form .form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+.register-form .form-group label {
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-weight: 500;
+}
+
+.register-form .form-group label::after {
+  content: " *";
+  color: #dc3545;
+}
+
+.register-form .form-group .form-input, .register-form .form-group .form-select {
+  padding: 0.75rem;
+  border: 2px solid #e9ecef;
+  border-radius: 8px;
+  font-size: 1rem;
+  transition: border-color 0.3s;
+}
+
+.register-form .form-group .form-input:focus, .register-form .form-group .form-select:focus {
+  outline: none;
+  border-color: #667eea;
+}
+
+.register-form .form-group .form-input:disabled, .register-form .form-group .form-select:disabled {
+  background-color: #f8f9fa;
+  cursor: not-allowed;
+}
+
+.register-form .form-group .form-input::placeholder {
+  color: #adb5bd;
+}
+
+.register-form .form-group .form-select {
+  cursor: pointer;
+}
+
+/* Remover asterisco dos campos opcionais */
+.register-form .form-group:has(#telefone) label::after,
+.register-form .form-group:has(#cpf) label::after,
+.register-form .form-group:has(#dataNascimento) label::after,
+.register-form .form-group:has(#genero) label::after,
+.register-form .form-group:has(#orientacaoSexual) label::after,
+.register-form .form-group:has(#identidadeGenero) label::after {
+  content: "";
+}
+
+.register-form .register-btn {
+  width: 100%;
+  padding: 1rem;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s;
+  margin-top: 1rem;
+}
+
+.register-form .register-btn:hover:not(:disabled) {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+}
+
+.register-form .register-btn:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.register-footer {
+  text-align: center;
+  margin-top: 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid #e9ecef;
+}
+
+.register-footer p {
+  color: #6c757d;
+  margin-bottom: 0.5rem;
+}
+
+.register-footer p .login-link, .register-footer p .company-link {
+  color: #667eea;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.register-footer p .login-link:hover, .register-footer p .company-link:hover {
+  text-decoration: underline;
+}
+
+.back-home {
+  text-align: center;
+  margin-top: 1.5rem;
+}
+
+.back-home .back-link {
+  color: #6c757d;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.back-home .back-link:hover {
+  color: #495057;
+}
+
+@media (max-width: 768px) {
+  .register-container {
+    padding: 10px;
+    margin: -20px -10px;
+  }
+  
+  .register-card {
+    padding: 2rem;
+  }
+  
+  .register-header h1 {
+    font-size: 1.5rem;
+  }
+  
+  .register-form .form-row {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .register-card {
+    padding: 1.5rem;
+  }
+  
+  .register-form .form-section h3 {
+    font-size: 1.1rem;
+  }
+}
+

@@ -1,0 +1,84 @@
+<div class="home">
+  <!-- Hero Section -->
+  <section class="hero">
+    <div class="hero-content">
+      <h1>Bem-vindo ao DiversaWork</h1>
+      <p class="hero-subtitle">
+        A plataforma que conecta talentos diversos com empresas inclusivas.
+        Encontre oportunidades de emprego em um ambiente que valoriza a diversidade.
+      </p>
+      <div class="hero-actions">
+        <a routerLink="/jobs" class="btn btn-primary">Ver Vagas</a>
+        <a routerLink="/register/candidate" class="btn btn-secondary">Cadastrar-se</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <div class="container">
+      <h2>Por que escolher o DiversaWork?</h2>
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🏳️‍🌈</div>
+          <h3>Inclusão LGBTQIA+</h3>
+          <p>Empresas parceiras comprometidas com a diversidade e inclusão da comunidade LGBTQIA+.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤝</div>
+          <h3>Ambiente Seguro</h3>
+          <p>Processo seletivo transparente onde sua identidade é respeitada desde o primeiro contato.</p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">💼</div>
+          <h3>Oportunidades Reais</h3>
+          <p>Vagas de empresas que valorizam a diversidade e buscam talentos únicos.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Recent Jobs Section -->
+  <section class="recent-jobs">
+    <div class="container">
+      <h2>Vagas Recentes</h2>
+      
+      <div *ngIf="loading" class="loading">
+        <p>Carregando vagas...</p>
+      </div>
+      
+      <div *ngIf="!loading && vagasRecentes.length > 0" class="jobs-grid">
+        <div *ngFor="let vaga of vagasRecentes" class="job-card">
+          <h3>{{ vaga.titulo }}</h3>
+          <p class="company">{{ vaga.empresa.nomeFantasia }}</p>
+          <p class="location">{{ vaga.localizacaoCidade }}, {{ vaga.localizacaoEstado }}</p>
+          <p class="salary" *ngIf="vaga.salarioMin">R$ {{ vaga.salarioMin | number:'1.2-2' }}</p>
+          <div class="job-actions">
+            <a [routerLink]="['/jobs', vaga.id]" class="btn btn-outline">Ver Detalhes</a>
+          </div>
+        </div>
+      </div>
+      
+      <div *ngIf="!loading && vagasRecentes.length === 0" class="no-jobs">
+        <p>Nenhuma vaga encontrada no momento.</p>
+      </div>
+      
+      <div class="view-all">
+        <a routerLink="/jobs" class="btn btn-primary">Ver Todas as Vagas</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="container">
+      <h2>Pronto para encontrar sua próxima oportunidade?</h2>
+      <p>Cadastre-se agora e comece a aplicar para vagas que valorizam quem você é.</p>
+      <div class="cta-actions">
+        <a routerLink="/register/candidate" class="btn btn-primary">Cadastrar como Candidato</a>
+        <a routerLink="/register/company" class="btn btn-secondary">Cadastrar Empresa</a>
+      </div>
+    </div>
+  </section>
+</div>
+

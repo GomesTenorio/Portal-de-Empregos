@@ -1,0 +1,146 @@
+<div class="job-detail">
+  <div class="container">
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">
+      <p>Carregando detalhes da vaga...</p>
+    </div>
+    
+    <!-- Conteúdo da Vaga -->
+    <div *ngIf="!loading && vaga" class="job-content">
+      <!-- Cabeçalho da Vaga -->
+      <div class="job-header">
+        <div class="job-title-section">
+          <h1>{{ vaga.titulo }}</h1>
+          <div class="company-info">
+            <h2>{{ vaga.empresa.nomeFantasia }}</h2>
+            <p *ngIf="vaga.empresa?.descricao">{{ vaga.empresa.descricao }}</p>
+          </div>
+        </div>
+        
+        <div class="job-status-section">
+          <span class="job-status" [class]="vaga.status.toLowerCase()">{{ vaga.status }}</span>
+          <div class="job-actions">
+            <button 
+              *ngIf="isLoggedIn() && isCandidato() && !hasApplied && vaga.status === 'Aberta'"
+              (click)="aplicarParaVaga()"
+              [disabled]="applying"
+              class="btn btn-primary apply-btn"
+            >
+              {{ applying ? 'Candidatando...' : 'Candidatar-se' }}
+            </button>
+            
+            <div *ngIf="hasApplied" class="applied-status">
+              <span class="applied-badge">✓ Você já se candidatou</span>
+            </div>
+            
+            <div *ngIf="!isLoggedIn()" class="login-prompt">
+              <a routerLink="/login" class="btn btn-primary">Faça login para se candidatar</a>
+            </div>
+            
+            <div *ngIf="isLoggedIn() && !isCandidato()" class="role-info">
+              <p>Apenas candidatos podem se candidatar a vagas.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Informações Básicas -->
+      <div class="job-info-grid">
+        <div class="info-card">
+          <h3>📍 Localização</h3>
+          <p>{{ vaga.localizacaoCidade }}, {{ vaga.localizacaoEstado }}</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>💼 Tipo de Contrato</h3>
+          <p>{{ vaga.tipoContrato }}</p>
+        </div>
+        
+        <div class="info-card" *ngIf="vaga.salarioMin">
+          <h3>💰 Salário</h3>
+          <p>R$ {{ vaga.salarioMin | number:'1.2-2' }}</p>
+        </div>
+        
+        <div class="info-card">
+          <h3>📅 Data de Publicação</h3>
+          <p>{{ vaga.dataPublicacao ? formatarData(vaga.dataPublicacao) : 'Não informado' }}</p>
+        </div>
+      </div>
+      
+      <!-- Descrição da Vaga -->
+      <div class="job-section">
+        <h3>Descrição da Vaga</h3>
+        <div class="content">
+          <p>{{ vaga.descricao }}</p>
+        </div>
+      </div>
+      
+      <!-- Requisitos -->
+      <div class="job-section" *ngIf="vaga.requisitos">
+        <h3>Requisitos</h3>
+        <div class="content">
+          <p>{{ vaga.requisitos }}</p>
+        </div>
+      </div>
+      
+      <!-- Benefícios -->
+      <div class="job-section" *ngIf="vaga.beneficios">
+        <h3>Benefícios</h3>
+        <div class="content">
+          <p>{{ vaga.beneficios }}</p>
+        </div>
+      </div>
+      
+      <!-- Informações da Empresa -->
+      <div class="company-section" *ngIf="vaga.empresa">
+        <h3>Sobre a Empresa</h3>
+        <div class="company-details">
+          <div class="company-info-grid">
+            <div class="company-info-item">
+              <strong>Nome:</strong> {{ vaga.empresa.nomeFantasia }}
+            </div>
+            <div class="company-info-item" *ngIf="vaga.empresa.setor">
+              <strong>Setor:</strong> {{ vaga.empresa.setor }}
+            </div>
+            <div class="company-info-item" *ngIf="vaga.empresa.porte">
+              <strong>Porte:</strong> {{ vaga.empresa.porte }}
+            </div>
+            <div class="company-info-item" *ngIf="vaga.empresa.website">
+              <strong>Site:</strong> 
+              <a [href]="vaga.empresa.website" target="_blank" rel="noopener noreferrer">
+                {{ vaga.empresa.website }}
+              </a>
+            </div>
+          </div>
+          <div class="company-description" *ngIf="vaga.empresa.descricao">
+            <p>{{ vaga.empresa.descricao }}</p>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Ações do Rodapé -->
+      <div class="job-footer">
+        <div class="footer-actions">
+          <a routerLink="/jobs" class="btn btn-secondary">← Voltar para Vagas</a>
+          
+          <button 
+            *ngIf="isLoggedIn() && isCandidato() && !hasApplied && vaga.status === 'Aberta'"
+            (click)="aplicarParaVaga()"
+            [disabled]="applying"
+            class="btn btn-primary"
+          >
+            {{ applying ? 'Candidatando...' : 'Candidatar-se' }}
+          </button>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Vaga não encontrada -->
+    <div *ngIf="!loading && !vaga" class="not-found">
+      <h2>Vaga não encontrada</h2>
+      <p>A vaga que você está procurando não existe ou foi removida.</p>
+      <a routerLink="/jobs" class="btn btn-primary">Ver Todas as Vagas</a>
+    </div>
+  </div>
+</div>
+

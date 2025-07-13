@@ -1,0 +1,221 @@
+<div class="register-container">
+  <div class="register-card">
+    <div class="register-header">
+      <h1>Cadastro de Candidato</h1>
+      <p>Crie sua conta e encontre oportunidades inclusivas</p>
+    </div>
+    
+    <form (ngSubmit)="onSubmit()" class="register-form">
+      <!-- Mensagens -->
+      <div *ngIf="errorMessage" class="error-message">
+        <span>{{ errorMessage }}</span>
+        <button type="button" (click)="clearMessages()" class="close-message">×</button>
+      </div>
+      
+      <div *ngIf="successMessage" class="success-message">
+        <span>{{ successMessage }}</span>
+      </div>
+      
+      <!-- Informações Básicas -->
+      <div class="form-section">
+        <h3>Informações Básicas</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="nome">Nome Completo *</label>
+            <input
+              type="text"
+              id="nome"
+              name="nome"
+              [(ngModel)]="candidateData.nome"
+              placeholder="Digite seu nome completo"
+              class="form-input"
+              required
+              [disabled]="loading"
+              (input)="clearMessages()"
+            >
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input
+              type="email"
+              id="email"
+              name="email"
+              [(ngModel)]="candidateData.email"
+              placeholder="Digite seu email"
+              class="form-input"
+              required
+              [disabled]="loading"
+              (input)="clearMessages()"
+            >
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="senha">Senha *</label>
+            <input
+              type="password"
+              id="senha"
+              name="senha"
+              [(ngModel)]="candidateData.senha"
+              placeholder="Digite sua senha (mín. 6 caracteres)"
+              class="form-input"
+              required
+              [disabled]="loading"
+              (input)="clearMessages()"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="confirmPassword">Confirmar Senha *</label>
+            <input
+              type="password"
+              id="confirmPassword"
+              name="confirmPassword"
+              [(ngModel)]="confirmPassword"
+              placeholder="Confirme sua senha"
+              class="form-input"
+              required
+              [disabled]="loading"
+              (input)="clearMessages()"
+            >
+          </div>
+        </div>
+      </div>
+      
+      <!-- Informações de Contato -->
+      <div class="form-section">
+        <h3>Informações de Contato</h3>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input
+              type="tel"
+              id="telefone"
+              name="telefone"
+              [(ngModel)]="candidateData.telefone"
+              placeholder="(11) 99999-9999"
+              class="form-input"
+              [disabled]="loading"
+            >
+          </div>
+          
+          <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input
+              type="text"
+              id="cpf"
+              name="cpf"
+              [(ngModel)]="candidateData.cpf"
+              placeholder="000.000.000-00"
+              class="form-input"
+              [disabled]="loading"
+            >
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="dataNascimento">Data de Nascimento</label>
+            <input
+              type="date"
+              id="dataNascimento"
+              name="dataNascimento"
+              [(ngModel)]="candidateData.dataNascimento"
+              class="form-input"
+              [disabled]="loading"
+            >
+          </div>
+        </div>
+      </div>
+      
+      <!-- Informações de Diversidade -->
+      <div class="form-section">
+        <h3>Informações de Diversidade</h3>
+        <p class="section-description">
+          Essas informações nos ajudam a conectar você com empresas que valorizam a diversidade. 
+          Todos os campos são opcionais e confidenciais.
+        </p>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="genero">Gênero</label>
+            <select
+              id="genero"
+              name="genero"
+              [(ngModel)]="candidateData.genero"
+              class="form-select"
+              [disabled]="loading"
+            >
+              <option value="">Selecione uma opção</option>
+              <option *ngFor="let option of generoOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+          
+          <div class="form-group">
+            <label for="orientacaoSexual">Orientação Sexual</label>
+            <select
+              id="orientacaoSexual"
+              name="orientacaoSexual"
+              [(ngModel)]="candidateData.orientacaoSexual"
+              class="form-select"
+              [disabled]="loading"
+            >
+              <option value="">Selecione uma opção</option>
+              <option *ngFor="let option of orientacaoOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label for="identidadeGenero">Identidade de Gênero</label>
+            <select
+              id="identidadeGenero"
+              name="identidadeGenero"
+              [(ngModel)]="candidateData.identidadeGenero"
+              class="form-select"
+              [disabled]="loading"
+            >
+              <option value="">Selecione uma opção</option>
+              <option *ngFor="let option of identidadeOptions" [value]="option.value">
+                {{ option.label }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Botão de Cadastro -->
+      <button 
+        type="submit" 
+        class="register-btn"
+        [disabled]="loading || !candidateData.nome || !candidateData.email || !candidateData.senha"
+      >
+        <span *ngIf="!loading">Criar Conta</span>
+        <span *ngIf="loading">Criando conta...</span>
+      </button>
+    </form>
+    
+    <!-- Links -->
+    <div class="register-footer">
+      <p>Já tem uma conta? <a routerLink="/login" class="login-link">Fazer login</a></p>
+      <p>É uma empresa? <a routerLink="/register/company" class="company-link">Cadastrar empresa</a></p>
+    </div>
+    
+    <!-- Link para Home -->
+    <div class="back-home">
+      <a routerLink="/" class="back-link">← Voltar para o início</a>
+    </div>
+  </div>
+</div>
+

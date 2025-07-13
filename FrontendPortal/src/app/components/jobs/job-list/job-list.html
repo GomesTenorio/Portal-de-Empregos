@@ -1,0 +1,130 @@
+<div class="job-list">
+  <div class="container">
+    <h1>Vagas Disponíveis</h1>
+    
+    <!-- Filtros de Busca -->
+    <div class="search-filters">
+      <div class="search-bar">
+        <input 
+          type="text" 
+          [(ngModel)]="searchTerm" 
+          placeholder="Buscar por título da vaga..."
+          class="search-input"
+          (keyup.enter)="onSearch()"
+        >
+        <button (click)="onSearch()" class="search-btn">Buscar</button>
+      </div>
+      
+      <div class="filters">
+        <div class="filter-group">
+          <label>Localização:</label>
+          <select [(ngModel)]="selectedLocation" (change)="onFilterChange()" class="filter-select">
+            <option value="">Todas as localizações</option>
+            <option *ngFor="let location of locations" [value]="location">{{ location }}</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Faixa Salarial:</label>
+          <select [(ngModel)]="selectedSalaryRange" (change)="onFilterChange()" class="filter-select">
+            <option value="">Todas as faixas</option>
+            <option *ngFor="let range of salaryRanges" [value]="range.value">{{ range.label }}</option>
+          </select>
+        </div>
+        
+        <div class="filter-group">
+          <label>Tipo de Contrato:</label>
+          <select [(ngModel)]="selectedContractType" (change)="onFilterChange()" class="filter-select">
+            <option value="">Todos os tipos</option>
+            <option *ngFor="let type of contractTypes" [value]="type.value">{{ type.label }}</option>
+          </select>
+        </div>
+        
+        <button (click)="limparFiltros()" class="clear-filters-btn">Limpar Filtros</button>
+      </div>
+    </div>
+    
+    <!-- Resultados -->
+    <div class="results-info">
+      <p *ngIf="!loading">{{ totalElements }} vaga(s) encontrada(s)</p>
+    </div>
+    
+    <!-- Loading -->
+    <div *ngIf="loading" class="loading">
+      <p>Carregando vagas...</p>
+    </div>
+    
+    <!-- Lista de Vagas -->
+    <div *ngIf="!loading && vagas.length > 0" class="jobs-container">
+      <div *ngFor="let vaga of vagas" class="job-card">
+        <div class="job-header">
+          <h3>{{ vaga.titulo }}</h3>
+          <span class="job-status" [class]="vaga.status.toLowerCase()">{{ vaga.status }}</span>
+        </div>
+        
+        <div class="job-info">
+          <p class="company">
+            <strong>{{ vaga.empresa.nomeFantasia }}</strong>
+          </p>
+          <p class="location">📍 {{ vaga.localizacaoCidade }}, {{ vaga.localizacaoEstado }}</p>
+          <p class="contract-type">💼 {{ vaga.tipoContrato }}</p>
+          <p class="salary" *ngIf="vaga.salarioMin">💰 R$ {{ vaga.salarioMin | number:'1.2-2' }}</p>
+        </div>
+        
+        <div class="job-description">
+          <p>{{ vaga.descricao | slice:0:200 }}{{ vaga.descricao && vaga.descricao.length > 200 ? '...' : '' }}</p>
+        </div>
+        
+        <div class="job-requirements" *ngIf="vaga.requisitos">
+          <h4>Requisitos:</h4>
+          <p>{{ vaga.requisitos | slice:0:150 }}{{ vaga.requisitos && vaga.requisitos.length > 150 ? '...' : '' }}</p>
+        </div>
+        
+        <div class="job-footer">
+          <div class="job-meta">
+            <span class="posted-date">Publicada em: {{ vaga.dataPublicacao | date:'dd/MM/yyyy' }}</span>
+          </div>
+          <div class="job-actions">
+            <a [routerLink]="['/jobs', vaga.id]" class="btn btn-primary">Ver Detalhes</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Sem resultados -->
+    <div *ngIf="!loading && vagas.length === 0" class="no-results">
+      <h3>Nenhuma vaga encontrada</h3>
+      <p>Tente ajustar os filtros de busca ou remover alguns critérios.</p>
+      <button (click)="limparFiltros()" class="btn btn-primary">Limpar Filtros</button>
+    </div>
+    
+    <!-- Paginação -->
+    <div *ngIf="!loading && totalPages > 1" class="pagination">
+      <button 
+        (click)="changePage(currentPage - 1)" 
+        [disabled]="currentPage === 0"
+        class="pagination-btn"
+      >
+        Anterior
+      </button>
+      
+      <button 
+        *ngFor="let page of getPageNumbers()" 
+        (click)="changePage(page)"
+        [class.active]="page === currentPage"
+        class="pagination-btn page-number"
+      >
+        {{ page + 1 }}
+      </button>
+      
+      <button 
+        (click)="changePage(currentPage + 1)" 
+        [disabled]="currentPage === totalPages - 1"
+        class="pagination-btn"
+      >
+        Próxima
+      </button>
+    </div>
+  </div>
+</div>
+
